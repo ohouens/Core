@@ -9,23 +9,28 @@ class Post extends Raw{
     protected $_active;
     protected $_date;
 
-    public static function compressType(){
+    public function compressType(){
         parent::compress([$this->getGroup(), $this->getFormat(), $this->getRange()]);
     }
 
-    public static function decompressType(){
+    public function decompressType(){
         $types = parent::decompress($this->getType());
         $this->setGroup($types[0]);
         $this->setFormat($types[1]);
         $this->setRange($types[2]);
     }
 
+    public function hydrate(array $data){
+        parent::hydrate($data);
+        self::decompressType();
+    }
+
     public function setUser($user){
-        if(!is_int($user)){
+        if(!preg_match("#^[0-9]+$#", $user)){
             trigger_error("User must be an integer", E_USER_WARNING);
             return;
         }
-        $this->_user = $user;
+        $this->_user = (int)$user;
     }
 
     public function setType($type){
@@ -37,27 +42,27 @@ class Post extends Raw{
     }
 
     public function setGroup($group){
-        if(!is_int($group)){
+        if(!preg_match("#^[0-9]+$#", $group)){
             trigger_error("Group must be an integer", E_USER_WARNING);
             return;
         }
-        $this->_group = $group;
+        $this->_group = (int)$group;
     }
 
     public function setFormat($format){
-        if(!is_int($format)){
+        if(!preg_match("#^[0-9]+$#", $format)){
             trigger_error("Format must be an integer", E_USER_WARNING);
             return;
         }
-        $this->_format = $format;
+        $this->_format = (int)$format;
     }
 
     public function setRange($range){
-        if(!is_int($range)){
+        if(!preg_match("#^[0-9]+$#", $range)){
             trigger_error('Range must be an integer', E_USER_WARNING);
             return;
         }
-        $this->_range = $range;
+        $this->_range = (int)$range;
     }
 
     public function setText($text){
@@ -69,11 +74,11 @@ class Post extends Raw{
     }
 
     public function setActive($active){
-        if(!is_int($active)){
+        if(!preg_match("#^[0-9]+$#", $active)){
             trigger_error('Active must be an integer', E_USER_WARNING);
             return;
         }
-        $this->_active = $active;
+        $this->_active = (int)$active;
     }
 
     public function setDate($date){
