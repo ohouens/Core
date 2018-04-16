@@ -12,7 +12,7 @@ class PostManager extends Manager{
 		)');
 		$req->execute(array(
 			"user" => $post->getUser(),
-			"type" => Post::compressType(),
+			"type" => $post->compressType(),
 			"field" => $post->getText(),
 			"visible" => $post->getActive(),
 			"creation" => $post->getDate()
