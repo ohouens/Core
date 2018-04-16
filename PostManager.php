@@ -1,6 +1,6 @@
 <?php
 class PostManager extends Manager{
-	const POST_TABLE = "onisowo_demande";
+	const POST_TABLE = "post";
 
 	public function add(Raw $post){
 		$req = $this->$_db->prepare('INSERT INTO '.self::POST_TABLE.'(user, type, field, active, creation) VALUES(
