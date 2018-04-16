@@ -9,8 +9,6 @@ class Raw{
 
     public function __construct(array $data){
         self::$_cpt++;
-        echo 'cpt33: '.self::$_cpt.'<br/>';
-        var_dump($data);
         $this->hydrate($data);
     }
 
