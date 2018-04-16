@@ -5,9 +5,9 @@ class Post extends Raw{
     protected $_group;
     protected $_format;
     protected $_range;
-    protected $_text;
+    protected $_field;
     protected $_active;
-    protected $_date;
+    protected $_creation;
 
     public function compressType(){
         parent::compress([$this->getGroup(), $this->getFormat(), $this->getRange()]);
@@ -22,7 +22,7 @@ class Post extends Raw{
 
     public function hydrate(array $data){
         parent::hydrate($data);
-        self::decompressType();
+        $this->decompressType();
     }
 
     public function setUser($user){
@@ -65,12 +65,12 @@ class Post extends Raw{
         $this->_range = (int)$range;
     }
 
-    public function setText($text){
-        if(!is_string($text)){
-            trigger_error('Text must be a string', E_USER_WARNING);
+    public function setField($field){
+        if(!is_string($field)){
+            trigger_error('Field must be a string', E_USER_WARNING);
             return;
         }
-        $this->_text = $text;
+        $this->_field = $field;
     }
 
     public function setActive($active){
@@ -81,12 +81,12 @@ class Post extends Raw{
         $this->_active = (int)$active;
     }
 
-    public function setDate($date){
-        if(!is_numeric($date)){
-            trigger_error("Date format must be numeric", E_USER_WARNING);
+    public function setCreation($creation){
+        if(!is_numeric($creation)){
+            trigger_error("Creation format must be int", E_USER_WARNING);
             return;
         }
-        $this->_date = $date;
+        $this->_creation = (int)$creation;
     }
 
     public function getUser(){
@@ -109,15 +109,15 @@ class Post extends Raw{
         return $this->_range;
     }
 
-    public function getText(){
-        return $this->_text;
+    public function getField(){
+        return $this->_field;
     }
 
     public function getActive(){
         return $this->_active;
     }
 
-    public function getDate(){
-        return $this->_date;
+    public function getCreation(){
+        return $this->_creation;
     }
 }
