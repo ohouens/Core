@@ -3,7 +3,7 @@ class PostManager extends Manager{
 	const POST_TABLE = "onisowo_demande";
 
 	public function add(Raw $post){
-		$req = $this->$_db->prepare('INSERT INTO :post(user, type, field, active, creation) VALUES(
+		$req = $this->$_db->prepare('INSERT INTO '.self::POST_TABLE.'(user, type, field, active, creation) VALUES(
 			:user,
 			:type,
 			:field,
@@ -11,7 +11,6 @@ class PostManager extends Manager{
 			:creation
 		)');
 		$req->execute(array(
-			"post" => self::POST_TABLE,
 			"user" => $post->getUser(),
 			"type" => Post::compressType(),
 			"field" => $post->getText(),
@@ -21,27 +20,21 @@ class PostManager extends Manager{
 	}
 
 	public function delete(Raw $post){
-		$req = $this->$_db->prepare('DELETE FROM :post WHERE id = :id');
-		$req->execute(array(
-			"post" => self::POST_TABLE,
-			"id" => $post->getId()
-		));
+		$req = $this->$_db->prepare('DELETE FROM '.self::POST_TABLE.' WHERE id = :id');
+		$req->execute(array("id" => $post->getId()));
 	}
 
 	public function get($id){
-		$req = $this->_db->prepare('SELECT * FROM onisowo_demande WHERE id = :id');
-		$req->execute(array(
-			// "post" => self::POST_TABLE,
-			"id" => $id
-		));
+		$req = $this->_db->prepare('SELECT * FROM '.self::POST_TABLE.' WHERE id = :id');
+		$req->execute(array("id" => $id));
 		$result = $req->fetch();
 		if(!$result)return 44;
 		return new Post($result);
 	}
 
 	public function getList(){
-		$req = $this->_db->prepare('SELECT * FROM :post');
-		$req->execute(array("post" => self::POST_TABLE));
+		$req = $this->_db->prepare('SELECT * FROM '.self::POST_TABLE);
+		$req->execute();
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)
 			$this->_list[$i] = new Post($result[$i]);
@@ -49,9 +42,8 @@ class PostManager extends Manager{
 	}
 
 	public function update(Raw $post){
-		$req = $this->_db->prepare('UPDATE :post SET field = :field, type = :type WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE '.self::POST_TABLE.' SET field = :field, type = :type WHERE id = :id');
 		$req->execute(array(
-			"post" => self::POST_TABLE,
 			"field" => $post->getText(),
 			"type" => $post->getType(),
 			"id" => $post->getId()
