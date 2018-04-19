@@ -37,11 +37,11 @@ class User extends Raw{
     }
 
     public function setPseudo($pseudo){
-        if(!preg_match("#^.{1,20}#$", $pseudo)){
+        if(!preg_match("#^.{1,20}$#", $pseudo)){
             trigger_error("Pseudo must be length from 1 to 20 characters", E_USER_WARNING);
             return;
         }
-        if(!preg_match("#^[a-z0-9_]{1,20}$#"), $pseudo){
+        if(!preg_match("#^[a-z0-9_]{1,20}$#", $pseudo)){
             trigger_error("Pseudo can only contain lower case, underscore and numbers", E_USER_WARNING);
             return;
         }
@@ -49,7 +49,7 @@ class User extends Raw{
     }
 
     public function setEmail($email){
-        if(!preg_match("#^[a-z0-9-_.]{2,}@[a-z]+\.[a-z]{2,}$#")){
+        if(!preg_match("#^[a-z0-9-_.]{2,}@[a-z]+\.[a-z]{2,}$#", $email)){
             trigger_error("Incorect format of email", E_USER_WARNING);
             return;
         }
@@ -89,18 +89,18 @@ class User extends Raw{
     }
 
     public function setActive($active){
-        if(preg_match("^[0-9]{1}$", $active)){
+        if(!preg_match("#^[0-9]{1}$#", $active)){
             trigger_error("Activation code must be 1 number", E_USER_WARNING);
             return;
         }
-        $this->_active = $active;
+        $this->_active = (int)$active;
     }
 
     public function setCreation($creation){
-        if(preg_match("^[0-9]{1,}$", $creation)){
-            trigger_error("Date of creation must an integer" E_USER_WARNING);
+        if(!preg_match("#^[0-9]{1,}$#", $creation)){
+            trigger_error("Date of creation must be an integer", E_USER_WARNING);
             return;
         }
-        $this->_creation = $creation;
+        $this->_creation = (int)$creation;
     }
 }
