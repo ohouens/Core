@@ -1,9 +1,9 @@
 <?php
 class PostManager extends Manager{
-	const POST_TABLE = "post";
+	const TABLE_NAME = "post";
 
 	public function add(Raw $post){
-		$req = $this->$_db->prepare('INSERT INTO '.self::POST_TABLE.'(user, type, field, active, creation) VALUES(
+		$req = $this->$_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, active, creation) VALUES(
 			:user,
 			:type,
 			:field,
@@ -20,12 +20,12 @@ class PostManager extends Manager{
 	}
 
 	public function delete(Raw $post){
-		$req = $this->$_db->prepare('DELETE FROM '.self::POST_TABLE.' WHERE id = :id');
+		$req = $this->$_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
 		$req->execute(array("id" => $post->getId()));
 	}
 
 	public function get($id){
-		$req = $this->_db->prepare('SELECT * FROM '.self::POST_TABLE.' WHERE id = :id');
+		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE id = :id');
 		$req->execute(array("id" => $id));
 		$result = $req->fetch();
 		if(!$result)return 44;
@@ -33,7 +33,7 @@ class PostManager extends Manager{
 	}
 
 	public function getList(){
-		$req = $this->_db->prepare('SELECT * FROM '.self::POST_TABLE);
+		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME);
 		$req->execute();
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)
@@ -42,7 +42,7 @@ class PostManager extends Manager{
 	}
 
 	public function update(Raw $post){
-		$req = $this->_db->prepare('UPDATE '.self::POST_TABLE.' SET field = :field, type = :type WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET field = :field, type = :type WHERE id = :id');
 		$req->execute(array(
 			"field" => $post->getText(),
 			"type" => $post->getType(),
