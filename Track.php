@@ -1,11 +1,11 @@
 <?php
 class Track extends Raw{
-    protected $_key;
+    protected $_cle;
     protected $_active;
     protected $_creation;
 
-    public function getKey(){
-        return $this->_key;
+    public function getCle(){
+        return $this->_cle;
     }
 
     public function getActive(){
@@ -16,12 +16,12 @@ class Track extends Raw{
         return $this->_creation;
     }
 
-    public function setKey($key){
-        if(!preg_match("#^[a-zA-Z0-9]{32}$#", $key)){
-            trigger_error("Key must contain 32 characters", E_USER_WARNING);
+    public function setCle($cle){
+        if(!preg_match("#^[a-zA-Z0-9]{32}$#", $cle)){
+            trigger_error("Cle must contain 32 characters", E_USER_WARNING);
             return;
         }
-        $this->_key = $key;
+        $this->_cle = $cle;
     }
 
     public function setActive($active){

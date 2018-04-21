@@ -3,11 +3,11 @@ class UserManager extends Manager{
     const TABLE_NAME = "user";
 
     public function add(User $user){
-        $req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(pseudo, email, password, key, extra, active, creation) VALUES(
+        $req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(pseudo, email, password, cle, extra, active, creation) VALUES(
             :pseudo,
             :email,
             :password,
-            :key,
+            :cle,
             :extra,
             :active,
             :creation
@@ -16,7 +16,7 @@ class UserManager extends Manager{
             "pseudo" => $user->getPseudo(),
             "email" => $user->getEmail(),
             "password" => $user->getPassword(),
-            "key" => $user->getKey(),
+            "cle" => $user->getCle(),
             "extra" => $user->getExtra(),
             "active" => $user->getActive(),
             "creation" => $user->getCreation()
@@ -46,10 +46,10 @@ class UserManager extends Manager{
     }
 
     public function update(User $user){
-        $req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET password = :password, key = :key, extra = :extra, active = :active WHERE id = :id');
+        $req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET password = :password, cle = :cle, extra = :extra, active = :active WHERE id = :id');
         $req->execute(array(
             "password" => $user->getPassword(),
-            "key" => $user->getKey(),
+            "cle" => $user->getCle(),
             "extra" => $user->getExtra(),
             "active" => $user->getActive(),
         ));
