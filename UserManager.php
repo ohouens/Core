@@ -3,7 +3,7 @@ class UserManager extends Manager{
     const TABLE_NAME = "user";
 
     public function add(User $user){
-        $req = $this->$_db->prepare('INSERT INTO '.self::TABLE_NAME.'(pseudo, email, password, key, extra, active, creation) VALUES(
+        $req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(pseudo, email, password, key, extra, active, creation) VALUES(
             :pseudo,
             :email,
             :password,
@@ -24,7 +24,7 @@ class UserManager extends Manager{
     }
 
     public function delete(User $user){
-		$req = $this->$_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
+		$req = $this->_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
 		$req->execute(array("id" => $user->getId()));
     }
 
@@ -42,7 +42,7 @@ class UserManager extends Manager{
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)
 			$this->_list[$i] = new User($result[$i]);
-		return $this->$_list;
+		return $this->_list;
     }
 
     public function update(User $user){

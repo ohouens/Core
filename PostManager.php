@@ -3,7 +3,7 @@ class PostManager extends Manager{
 	const TABLE_NAME = "post";
 
 	public function add(Post $post){
-		$req = $this->$_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, active, creation) VALUES(
 			:user,
 			:type,
 			:field,
@@ -20,7 +20,7 @@ class PostManager extends Manager{
 	}
 
 	public function delete(Post $post){
-		$req = $this->$_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
+		$req = $this->_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
 		$req->execute(array("id" => $post->getId()));
 	}
 
@@ -38,7 +38,7 @@ class PostManager extends Manager{
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)
 			$this->_list[$i] = new Post($result[$i]);
-		return $this->$_list;
+		return $this->_list;
 	}
 
 	public function update(Post $post){

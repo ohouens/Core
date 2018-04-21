@@ -3,7 +3,7 @@ class PointManager extends Manager{
     const TABLE_NAME = "point";
 
     public function add(Point $point){
-		$req = $this->$_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, key, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, key, active, creation) VALUES(
 			:name,
             :key,
             :active,
@@ -18,7 +18,7 @@ class PointManager extends Manager{
 	}
 
 	public function delete(Point $point){
-		$req = $this->$_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
+		$req = $this->_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
 		$req->execute(array("id" => $point->getId()));
 	}
 
@@ -36,7 +36,7 @@ class PointManager extends Manager{
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)
 			$this->_list[$i] = new Point($result[$i]);
-		return $this->$_list;
+		return $this->_list;
 	}
 
 	public function update(Point $point){
