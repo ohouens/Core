@@ -7,14 +7,18 @@ class Point extends Track{
 
 
     public function compressName(){
-        self::compress([$this->_country, $this->_origin, $this->_creator]);
+        return $this->_country.$this->_origin.$this->_creator;
     }
 
     public function decompressName(){
-        $name = self::decompress($this->_name);
-        $this->setContry($name[0]);
-        $this->setOrigin($name[1]);
-        $this->setCreator($name0[2]);
+        $this->setCountry(substr($this->_name, 0, 2));
+        $this->setOrigin(substr($this->_name, 2, -3));
+        $this->setCreator(substr($this->_name, -3));
+    }
+
+    public function hydrate(array $data){
+        parent::hydrate($data);
+        $this->decompressName();
     }
 
     public function getName(){
@@ -34,16 +38,16 @@ class Point extends Track{
     }
 
     public function setName($name){
-        if(!preg_match("#^[A-Z]{2}[0-9]{12}[A-Z]{2}$#", $name)){
-            trigger_error("Incorrect name format" E_USER_WARNING);
+        if(!preg_match("#^[A-Z]{2}[0-9]{1}[0-9A-F]{2}[0-9]{9}[A-Z]{2}$#", $name)){
+            trigger_error("Incorrect name format", E_USER_WARNING);
             return;
         }
         $this->_name = $name;
     }
 
     public function setOrigin($origin){
-        if(!preg_match("#^[0-9]{11}$#", $origin)){
-            trigger_error("Incorrect format of origin" E_USER_WARNING);
+        if(!preg_match("#^[0-9]{1}[0-9A-F]{2}[0-9]{8}$#", $origin)){
+            trigger_error("Incorrect format of origin", E_USER_WARNING);
             return;
         }
         $this->_origin = $origin;
@@ -51,7 +55,7 @@ class Point extends Track{
 
     public function setCountry($country){
         if(!preg_match("#^[A-Z]{2}$#", $country)){
-            trigger_error("Incorrect country code format" E_USER_WARNING);
+            trigger_error("Incorrect country code format", E_USER_WARNING);
             return;
         }
         $this->_country = $country;
@@ -59,7 +63,7 @@ class Point extends Track{
 
     public function setCreator($creator){
         if(!preg_match("#^[0-9]{1}[A-Z]{2}$#", $creator)){
-            trigger_error("Incorrect creator format" E_USER_WARNING);
+            trigger_error("Incorrect creator format", E_USER_WARNING);
             return;
         }
         $this->_creator = $creator;
