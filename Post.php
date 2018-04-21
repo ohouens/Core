@@ -10,7 +10,7 @@ class Post extends Raw{
     protected $_creation;
 
     public function compressType(){
-        parent::compress([$this->getGroup(), $this->getFormat(), $this->getRange()]);
+        self::compress([$this->getGroup(), $this->getFormat(), $this->getRange()]);
     }
 
     public function decompressType(){
