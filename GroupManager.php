@@ -1,6 +1,6 @@
 <?php
 class GroupManager extends Manager{
-    const TABLE_NAME = "group";
+    const TABLE_NAME = "groupe";
 
     public function add(Group $group){
 		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, cle, active, creation) VALUES(

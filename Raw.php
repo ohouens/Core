@@ -1,6 +1,7 @@
 <?php
 class Raw{
     protected $_id;
+    protected $_var;
 
     private static $_cpt = 0;
 
@@ -9,6 +10,7 @@ class Raw{
 
     public function __construct(array $data){
         self::$_cpt++;
+        $this->_var = [];
         $this->hydrate($data);
     }
 
@@ -31,6 +33,21 @@ class Raw{
 
     public static function decompress($result){
         return explode(self::DELIMITER, $result);
+    }
+
+    public static function assign(array $val){
+        return key($val).self::ASSIGNMENT.$val[key($val)];
+    }
+
+    public function addVar($string){
+        if($string == "")
+            return;
+        if(!preg_match("#^[\w]+".self::ASSIGNMENT.".*$#", $string)){
+            trigger_error("Incorrect format", E_USER_WARNING);
+            return;
+        }
+        $inter = explode(self::ASSIGNMENT, $string);
+        $this->_var[$inter[0]] = $inter[1];
     }
 
     public function setId($id){
