@@ -3,7 +3,6 @@ class User extends Track{
     protected $_pseudo;
     protected $_email;
     protected $_password;
-    protected $_extra;
 
     public function getPseudo(){
         return $this->_pseudo;
@@ -15,10 +14,6 @@ class User extends Track{
 
     public function getPassword(){
         return $this->_password;
-    }
-
-    public function getExtra(){
-        return $this->_extra;
     }
 
     public function setPseudo($pseudo){
@@ -59,9 +54,5 @@ class User extends Track{
             return;
         }
         $this->_password = $password;
-    }
-
-    public function setExtra($extra){
-        $this->_extra = $extra;
     }
 }

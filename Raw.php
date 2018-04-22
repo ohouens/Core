@@ -2,6 +2,7 @@
 class Raw{
     protected $_id;
     protected $_var;
+    protected $_extra;
 
     private static $_cpt = 0;
 
@@ -26,7 +27,8 @@ class Raw{
     public static function compress(array $data){
         $result = "";
         for($i=0; $i<count($data)-1; $i++)
-            $result .= $data[$i].self::DELIMITER;
+            if($data[$i] != "")
+                $result .= $data[$i].self::DELIMITER;
         $result .= $data[count($data)-1];
         return $result;
     }
@@ -50,6 +52,20 @@ class Raw{
         $this->_var[$inter[0]] = $inter[1];
     }
 
+    public function compressExtra(){
+        $tab = "";
+        foreach ($this->_var as $key => $val)
+            if(!preg_match(Constant::REGEX_CREATION, $val))
+                $tab = self::compress([$tab, self::assign([$key => $val])]);
+        return $tab;
+    }
+
+    public function decompressExtra(){
+        $extras = self::decompress($this->_extra);
+        foreach($extras as $string)
+            $this->addVar($string);
+    }
+
     public function setId($id){
         if(!preg_match("#^[0-9]+$#", $id)){
             trigger_error('ID must be an integer', E_USER_WARNING);
@@ -58,7 +74,19 @@ class Raw{
         $this->_id = (int)$id;
     }
 
+    public function setExtra($extra){
+        if(!preg_match("#^([\w]+".self::ASSIGNMENT.".*".self::DELIMITER.")*([\w]+".self::ASSIGNMENT.".*)?$#", $extra)){
+            trigger_error("Incorrect extra format", E_USER_WARNING);
+            return;
+        }
+        $this->_extra = $extra;
+    }
+
     public function getId(){
         return $this->_id;
+    }
+
+    public function getExtra(){
+        return $this->_extra;
     }
 }
