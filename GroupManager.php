@@ -1,25 +1,29 @@
 <?php
 class GroupManager extends Manager{
-    const TABLE_NAME = "groupe";
+    const TABLE_NAME = "team";
 
     public function add(Group $group){
-		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, cle, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, membre, extra, token, active, creation) VALUES(
 			:name,
-            :cle,
+            :membre,
+            :extra,
+            :token,
             :active,
             :creation
 		)');
 		$req->execute(array(
 			"name" => $group->getName(),
-            "cle" => $group->getCle(),
+            "membre" => $group->getMembre(),
+            "extra" => $group->getExtra(),
+            "token" => $group->getToken(),
             "active" => $group->getActive(),
             "creation" => $group->getCreation()
 		));
 	}
 
-	public function delete(Group $group){
+	public function delete($id){
 		$req = $this->_db->prepare('DELETE FROM '.self::TABLE_NAME.' WHERE id = :id');
-		$req->execute(array("id" => $group->getId()));
+		$req->execute(array("id" => $id));
 	}
 
 	public function get($id){

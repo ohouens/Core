@@ -40,7 +40,7 @@ class Group extends Track{
     }
 
     public function setName($name){
-        if(!preg_match("#^[A-Z]{1}[a-z]{0,}$#", $name)){
+        if(!preg_match(Constant::REGEX_NAME_GROUP, $name)){
             trigger_error("Incorrect name format", E_USER_WARNING);
             return;
         }

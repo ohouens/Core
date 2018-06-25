@@ -1,11 +1,11 @@
 <?php
 class Track extends Raw{
-    protected $_cle;
+    protected $_token;
     protected $_active;
     protected $_creation;
 
-    public function getCle(){
-        return $this->_cle;
+    public function getToken(){
+        return $this->_token;
     }
 
     public function getActive(){
@@ -16,12 +16,12 @@ class Track extends Raw{
         return $this->_creation;
     }
 
-    public function setCle($cle){
-        if(!preg_match("#^[a-zA-Z0-9]{32}$#", $cle)){
-            trigger_error("Cle must contain 32 characters", E_USER_WARNING);
+    public function setToken($token){
+        if(!preg_match("#^[a-zA-Z0-9]{32}$#", $token)){
+            trigger_error("Token must contain 32 characters", E_USER_WARNING);
             return;
         }
-        $this->_cle = $cle;
+        $this->_token = $token;
     }
 
     public function setActive($active){
