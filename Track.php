@@ -4,6 +4,13 @@ class Track extends Raw{
     protected $_active;
     protected $_creation;
 
+    public function __construct(array $data=[]){
+        $this->setToken(achage(32));
+        $this->setActive(0);
+        $this->setCreation(time());
+        parent::__construct($data);
+    }
+
     public function getToken(){
         return $this->_token;
     }

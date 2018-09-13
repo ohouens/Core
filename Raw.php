@@ -9,7 +9,7 @@ class Raw{
     const DELIMITER = "|";
     const ASSIGNMENT = ":";
 
-    public function __construct(array $data){
+    public function __construct(array $data = []){
         self::$_cpt++;
         $this->_var = [];
         $this->hydrate($data);
@@ -19,7 +19,11 @@ class Raw{
         foreach($data as $key => $value){
             $method = 'set'.ucfirst($key);
             if(method_exists($this, $method)){
-                $this->$method($value);
+                $state = $this->$method($value);
+                if(is_int($state)){
+                    echo $state;
+                    exit($state);
+                }
             }
         }
     }
@@ -50,6 +54,11 @@ class Raw{
         }
         $inter = explode(self::ASSIGNMENT, $string);
         $this->_var[$inter[0]] = $inter[1];
+    }
+
+    public function removeVar($key){
+        if(array_key_exists($key, $this->_var))
+            unset($this->_var[key]);
     }
 
     public function compressExtra(){
