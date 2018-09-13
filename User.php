@@ -11,6 +11,12 @@ class User extends Track{
         parent::__construct($data);
     }
 
+    public function start(){
+        if(isset($_POST['rest'])){
+
+        }else $_SESSION['id'] = $this->_id;
+    }
+
     public function getPseudo(){
         return $this->_pseudo;
     }
@@ -27,6 +33,10 @@ class User extends Track{
         if(!preg_match("#^.{1,20}$#", $pseudo)){
             trigger_error("Pseudo must be length from 1 to 20 characters", E_USER_WARNING);
             return 20;
+        }
+        if(!preg_match("#[a-z]+#", $pseudo)){
+            trigger_error("Pseudo must contain at least one lower case", E_USER_WARNING);
+            return 212;
         }
         if(!preg_match("#^[a-z0-9_]{1,20}$#", $pseudo)){
             trigger_error("Pseudo can only contain lower case, underscore and numbers", E_USER_WARNING);
