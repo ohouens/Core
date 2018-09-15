@@ -12,6 +12,7 @@ class Raw{
     public function __construct(array $data = []){
         self::$_cpt++;
         $this->_var = [];
+        $this->_extra = "";
         $this->hydrate($data);
     }
 

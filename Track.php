@@ -6,7 +6,7 @@ class Track extends Raw{
 
     public function __construct(array $data=[]){
         $this->setToken(achage(32));
-        $this->setActive(0);
+        $this->setActive(1);
         $this->setCreation(time());
         parent::__construct($data);
     }

@@ -13,8 +13,18 @@ class User extends Track{
 
     public function start(){
         if(isset($_POST['rest'])){
+            return '{"id": "'.$this->_id.'", "token": "'.$this->_token.'"}';
+        }else{
+            $_SESSION['id'] = $this->_id;
+            return 0;
+        }
+    }
 
-        }else $_SESSION['id'] = $this->_id;
+    public static function end(){
+        session_unset();
+    	session_destroy();
+    	header('location: index.php');
+        return 0;
     }
 
     public function getPseudo(){
@@ -36,11 +46,11 @@ class User extends Track{
         }
         if(!preg_match("#[a-z]+#", $pseudo)){
             trigger_error("Pseudo must contain at least one lower case", E_USER_WARNING);
-            return 212;
+            return 211;
         }
         if(!preg_match("#^[a-z0-9_]{1,20}$#", $pseudo)){
             trigger_error("Pseudo can only contain lower case, underscore and numbers", E_USER_WARNING);
-            return 21;
+            return 212;
         }
         $this->_pseudo = $pseudo;
     }

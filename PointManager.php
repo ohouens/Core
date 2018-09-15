@@ -3,15 +3,15 @@ class PointManager extends Manager{
     const TABLE_NAME = "point";
 
     public function add(Point $point){
-		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, cle, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, token, active, creation) VALUES(
 			:name,
-            :cle,
+            :token,
             :active,
             :creation
 		)');
 		$req->execute(array(
 			"name" => $point->getName(),
-            "cle" => $point->getCle(),
+            "token" => $point->getToken(),
             "active" => $point->getActive(),
             "creation" => $point->getCreation()
 		));
