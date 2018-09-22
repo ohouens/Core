@@ -96,6 +96,10 @@ class Raw{
         return $this->_id;
     }
 
+    public function getVar(){
+        return $this->_var;
+    }
+
     public function getExtra(){
         return $this->_extra;
     }
