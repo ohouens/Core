@@ -2,22 +2,22 @@
 class Post extends Raw{
     protected $_user;
     protected $_type;
-    protected $_group;
     protected $_format;
-    protected $_range;
+    protected $_read;
+    protected $_write;
     protected $_field;
     protected $_active;
     protected $_creation;
 
     public function compressType(){
-        self::compress([$this->getGroup(), $this->getFormat(), $this->getRange()]);
+        self::compress([$this->getFormat(), $this->getRead(), $this->getWrite()]);
     }
 
     public function decompressType(){
         $types = parent::decompress($this->getType());
-        $this->setGroup($types[0]);
-        $this->setFormat($types[1]);
-        $this->setRange($types[2]);
+        $this->setFormat($types[0]);
+        $this->setRead($types[1]);
+        $this->setWrite($types[2]);
     }
 
     public function hydrate(array $data){
@@ -41,12 +41,12 @@ class Post extends Raw{
         $this->_type = $type;
     }
 
-    public function setGroup($group){
-        if(!preg_match("#^[0-9]+$#", $group)){
-            trigger_error("Group must be an integer", E_USER_WARNING);
+    public function setWrite($write){
+        if(!preg_match("#^[0-9]+$#", $write)){
+            trigger_error("Write must be an integer", E_USER_WARNING);
             return;
         }
-        $this->_group = (int)$group;
+        $this->_write = (int)$write;
     }
 
     public function setFormat($format){
@@ -57,12 +57,12 @@ class Post extends Raw{
         $this->_format = (int)$format;
     }
 
-    public function setRange($range){
-        if(!preg_match("#^[0-9]+$#", $range)){
-            trigger_error('Range must be an integer', E_USER_WARNING);
+    public function setRead($read){
+        if(!preg_match("#^[0-9]+$#", $read)){
+            trigger_error('Read must be an integer', E_USER_WARNING);
             return;
         }
-        $this->_range = (int)$range;
+        $this->_read = (int)$read;
     }
 
     public function setField($field){
@@ -97,16 +97,16 @@ class Post extends Raw{
         return $this->_type;
     }
 
-    public function getGroup(){
-        return $this->_group;
+    public function getWrite(){
+        return $this->_write;
     }
 
     public function getFormat(){
         return $this->_format;
     }
 
-    public function getRange(){
-        return $this->_range;
+    public function getRead(){
+        return $this->_read;
     }
 
     public function getField(){
