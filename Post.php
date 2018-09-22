@@ -23,6 +23,7 @@ class Post extends Raw{
     public function hydrate(array $data){
         parent::hydrate($data);
         $this->decompressType();
+        $this->decompressExtra();
     }
 
     public function setUser($user){
