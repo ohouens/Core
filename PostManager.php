@@ -3,19 +3,23 @@ class PostManager extends Manager{
 	const TABLE_NAME = "post";
 
 	public function add(Post $post){
-		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, extra, tab, active, creation) VALUES(
 			:user,
 			:type,
 			:field,
+			:extra,
+			:tab,
 			:active,
 			:creation
 		)');
 		$req->execute(array(
 			"user" => $post->getUser(),
-			"type" => $post->compressType(),
-			"field" => $post->getText(),
-			"visible" => $post->getActive(),
-			"creation" => $post->getDate()
+			"type" => $post->getType(),
+			"field" => $post->getField(),
+			"extra" => $post->getExtra(),
+			"tab" => $post->getTab(),
+			"active" => $post->getActive(),
+			"creation" => $post->getCreation()
 		));
 	}
 
@@ -42,11 +46,24 @@ class PostManager extends Manager{
 	}
 
 	public function update(Post $post){
-		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET field = :field, type = :type WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET field = :field, type = :type, extra = :extra, tab = :tab WHERE id = :id');
 		$req->execute(array(
 			"field" => $post->getText(),
 			"type" => $post->getType(),
+			"extra" => $post->getExtra(),
+			"tab" => $post->getTab(),
 			"id" => $post->getId()
 		));
 	}
+
+	public function listFormatFilter(array $list, array $formats){
+        //int formats[]
+        //Post list[]
+        $final = [];
+        foreach($list as $inter){
+            if(in_array($inter->getFormat(), $formats))
+                array_push($final, $inter);
+        }
+        return $final;
+    }
 }

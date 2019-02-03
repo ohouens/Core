@@ -1,16 +1,21 @@
 <?php
-class Post extends Raw{
+class Post extends Track{
     protected $_user;
     protected $_type;
     protected $_format;
     protected $_read;
     protected $_write;
     protected $_field;
-    protected $_active;
-    protected $_creation;
+
+    public function __construct(array $data=[]){
+        $this->setType('0|1|0');
+        parent::__construct($data);
+        $this->decompressType();
+        $this->decompressExtra();
+    }
 
     public function compressType(){
-        self::compress([$this->getFormat(), $this->getRead(), $this->getWrite()]);
+        $this->_type = self::compress([$this->getFormat(), $this->getRead(), $this->getWrite()]);
     }
 
     public function decompressType(){
@@ -18,12 +23,6 @@ class Post extends Raw{
         $this->setFormat($types[0]);
         $this->setRead($types[1]);
         $this->setWrite($types[2]);
-    }
-
-    public function hydrate(array $data){
-        parent::hydrate($data);
-        $this->decompressType();
-        $this->decompressExtra();
     }
 
     public function setUser($user){
@@ -74,22 +73,6 @@ class Post extends Raw{
         $this->_field = $field;
     }
 
-    public function setActive($active){
-        if(!preg_match("#^[0-9]+$#", $active)){
-            trigger_error('Active must be an integer', E_USER_WARNING);
-            return;
-        }
-        $this->_active = (int)$active;
-    }
-
-    public function setCreation($creation){
-        if(!is_numeric($creation)){
-            trigger_error("Creation format must be int", E_USER_WARNING);
-            return;
-        }
-        $this->_creation = (int)$creation;
-    }
-
     public function getUser(){
         return $this->_user;
     }
@@ -112,13 +95,5 @@ class Post extends Raw{
 
     public function getField(){
         return $this->_field;
-    }
-
-    public function getActive(){
-        return $this->_active;
-    }
-
-    public function getCreation(){
-        return $this->_creation;
     }
 }

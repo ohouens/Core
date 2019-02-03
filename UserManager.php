@@ -12,12 +12,13 @@ class UserManager extends Manager{
             return 299;
         }
 
-        $req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(pseudo, email, password, token, extra, active, creation) VALUES(
+        $req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(pseudo, email, password, token, extra, tab, active, creation) VALUES(
             :pseudo,
             :email,
             :password,
             :token,
             :extra,
+            :tab,
             :active,
             :creation
         )');
@@ -27,6 +28,7 @@ class UserManager extends Manager{
             "password" => $user->getPassword(),
             "token" => $user->getToken(),
             "extra" => $user->getExtra(),
+            "tab" => $user->getTab(),
             "active" => $user->getActive(),
             "creation" => $user->getCreation()
         ));
@@ -55,12 +57,21 @@ class UserManager extends Manager{
     }
 
     public function update(User $user){
-        $req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET password = :password, token = :token, extra = :extra, active = :active WHERE id = :id');
+        $req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET password = :password, token = :token, extra = :extra, tab = :tab, active = :active WHERE id = :id');
         $req->execute(array(
             "password" => $user->getPassword(),
             "token" => $user->getToken(),
             "extra" => $user->getExtra(),
+            "tab" => $user->getTab(),
             "active" => $user->getActive(),
         ));
+    }
+
+    public static function getPseudo($id, PDO $db, $stop=false){
+        $req = $db->prepare('SELECT pseudo FROM '.self::TABLE_NAME.' WHERE id = ?');
+        $req->execute(array($id));
+        $result = $req->fetch();
+        if(!$result){if($stop){echo 293;exit(293);}return 293;}
+        return $result['pseudo'];
     }
 }

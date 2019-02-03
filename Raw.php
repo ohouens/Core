@@ -1,6 +1,8 @@
 <?php
 class Raw{
     protected $_id;
+    protected $_data;
+    protected $_tab;
     protected $_var;
     protected $_extra;
 
@@ -11,6 +13,8 @@ class Raw{
 
     public function __construct(array $data = []){
         self::$_cpt++;
+        $this->_data = [];
+        $this->_tab = "";
         $this->_var = [];
         $this->_extra = "";
         $this->hydrate($data);
@@ -46,6 +50,24 @@ class Raw{
         return key($val).self::ASSIGNMENT.$val[key($val)];
     }
 
+    public function addData(array $data){
+        foreach($data as $key => $value)
+            $this->_data[$key] = $value;
+    }
+
+    public function removeData($key){
+        if(array_key_exists($key, $this->_data))
+            unset($this->_data[$key]);
+    }
+
+    public function compressTab(){
+        $this->_tab = json_encode($this->_data);
+    }
+
+    public function decompressTab(){
+        $this->_data = json_decode($this->_tab);
+    }
+
     public function addVar($string){
         if($string == "")
             return;
@@ -59,15 +81,14 @@ class Raw{
 
     public function removeVar($key){
         if(array_key_exists($key, $this->_var))
-            unset($this->_var[key]);
+            unset($this->_var[$key]);
     }
 
     public function compressExtra(){
         $tab = "";
         foreach ($this->_var as $key => $val)
-            if(!preg_match(Constant::REGEX_CREATION, $val))
-                $tab = self::compress([$tab, self::assign([$key => $val])]);
-        return $tab;
+            $tab = self::compress([$tab, self::assign([$key => $val])]);
+        $this->_extra = $tab;
     }
 
     public function decompressExtra(){
@@ -94,6 +115,14 @@ class Raw{
 
     public function getId(){
         return $this->_id;
+    }
+
+    public function getData(){
+        return $this->_data;
+    }
+
+    public function getTab(){
+        return $this->_tab;
     }
 
     public function getVar(){

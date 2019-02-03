@@ -13,4 +13,12 @@ class Constant{
     const REGEX_EMAIL = "#^[a-z0-9-_.]{2,}@[a-z]+\.[a-z]{2,}$#";
     const REGEX_NAME_GROUP = "#^[A-Z]{1}[a-zA-Z]{0,}$#";
     const REGEX_NAME_POINT = "#^[A-Z]{2}[0-9]{1}[0-9A-F]{2}[0-9]{9}[A-Z]{2}$#";
+
+    const FORMAT_SIMPLE = 1;
+    const FORMAT_VOTE = 2;
+    const FORMAT_BARRIER = 3;
+    const FORMAT_CONTRACT = 4;
+    const FORMAT_REQUEST = 5;
+
+    const ERROR_CODE_OK = 0;
 }
