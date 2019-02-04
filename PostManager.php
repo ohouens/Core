@@ -48,7 +48,7 @@ class PostManager extends Manager{
 	public function update(Post $post){
 		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET field = :field, type = :type, extra = :extra, tab = :tab WHERE id = :id');
 		$req->execute(array(
-			"field" => $post->getText(),
+			"field" => $post->getField(),
 			"type" => $post->getType(),
 			"extra" => $post->getExtra(),
 			"tab" => $post->getTab(),
