@@ -11,7 +11,6 @@ class Post extends Track{
         $this->setType('0|1|0');
         parent::__construct($data);
         $this->decompressType();
-        $this->decompressExtra();
     }
 
     public function compressType(){
@@ -41,28 +40,34 @@ class Post extends Track{
         $this->_type = $type;
     }
 
-    public function setWrite($write){
+    public function setWrite($write, $compress=true){
         if(!preg_match("#^[0-9]+$#", $write)){
             trigger_error("Write must be an integer", E_USER_WARNING);
             return;
         }
         $this->_write = (int)$write;
+        if($compress)
+            $this->compressType();
     }
 
-    public function setFormat($format){
+    public function setFormat($format, $compress=true){
         if(!preg_match("#^[0-9]+$#", $format)){
             trigger_error("Format must be an integer", E_USER_WARNING);
             return;
         }
         $this->_format = (int)$format;
+        if($compress)
+            $this->compressType();
     }
 
-    public function setRead($read){
+    public function setRead($read, $compress=true){
         if(!preg_match("#^[0-9]+$#", $read)){
             trigger_error('Read must be an integer', E_USER_WARNING);
             return;
         }
         $this->_read = (int)$read;
+        if($compress)
+            $this->compressType();
     }
 
     public function setField($field){

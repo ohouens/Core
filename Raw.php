@@ -18,6 +18,8 @@ class Raw{
         $this->_var = [];
         $this->_extra = "";
         $this->hydrate($data);
+        $this->decompressTab();
+        $this->decompressExtra();
     }
 
     public function hydrate(array $data){
@@ -50,9 +52,11 @@ class Raw{
         return key($val).self::ASSIGNMENT.$val[key($val)];
     }
 
-    public function addData(array $data){
+    public function addData(array $data, $compress=true){
         foreach($data as $key => $value)
             $this->_data[$key] = $value;
+        if($compress)
+            $this->compressTab();
     }
 
     public function removeData($key){
@@ -65,10 +69,10 @@ class Raw{
     }
 
     public function decompressTab(){
-        $this->_data = json_decode($this->_tab);
+        $this->_data = json_decode($this->_tab, true);
     }
 
-    public function addVar($string){
+    public function addVar($string, $compress=true){
         if($string == "")
             return;
         if(!preg_match("#^[\w]+".self::ASSIGNMENT.".*$#", $string)){
@@ -77,6 +81,8 @@ class Raw{
         }
         $inter = explode(self::ASSIGNMENT, $string);
         $this->_var[$inter[0]] = $inter[1];
+        if($compress)
+            $this->compressExtra();
     }
 
     public function removeVar($key){
@@ -103,6 +109,10 @@ class Raw{
             return;
         }
         $this->_id = (int)$id;
+    }
+
+    public function setTab($tab){
+        $this->_tab = $tab;
     }
 
     public function setExtra($extra){
