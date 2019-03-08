@@ -57,8 +57,8 @@ class PostManager extends Manager{
 	}
 
 	public function listFormatFilter(array $list, array $formats){
+		//Post list[]
         //int formats[]
-        //Post list[]
         $final = [];
         foreach($list as $inter){
             if(in_array($inter->getFormat(), $formats))
