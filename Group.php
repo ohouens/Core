@@ -10,19 +10,19 @@ class Group extends Track{
     }
 
     public function compressMembre(){
-        $tab = "";
+        $extra = "";
         foreach ($this->_var as $key => $val)
             if(preg_match(Constant::REGEX_CREATION, $val))
-                $tab = self::compress([$tab, self::assign([$key => $val])]);
-        return $tab;
+                $extra = self::compress([$extra, self::assign([$key => $val])]);
+        return $extra;
     }
 
     public function compressExtra(){
-        $tab = "";
+        $extra = "";
         foreach ($this->_var as $key => $val)
             if(!preg_match(Constant::REGEX_CREATION, $val))
-                $tab = self::compress([$tab, self::assign([$key => $val])]);
-        return $tab;
+                $extra = self::compress([$extra, self::assign([$key => $val])]);
+        return $extra;
     }
 
     public function decompressMembre(){

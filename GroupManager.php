@@ -3,11 +3,10 @@ class GroupManager extends Manager{
     const TABLE_NAME = "team";
 
     public function add(Group $group){
-		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, membre, extra, tab, token, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(name, membre, extra, token, active, creation) VALUES(
 			:name,
             :membre,
             :extra,
-            :tab,
             :token,
             :active,
             :creation
@@ -16,7 +15,6 @@ class GroupManager extends Manager{
 			"name" => $group->getName(),
             "membre" => $group->getMembre(),
             "extra" => $group->compressExtra(),
-            "tab" => $group->compressTab(),
             "token" => $group->getToken(),
             "active" => $group->getActive(),
             "creation" => $group->getCreation()
@@ -46,11 +44,10 @@ class GroupManager extends Manager{
 	}
 
 	public function update(Group $group){
-		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET active = :active, extra = :extra, tab = :tab WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET active = :active, extra = :extra WHERE id = :id');
 		$req->execute(array(
 			"active" => $group->getActive(),
             "extra" => $group->compressExtra(),
-            "tab" => $group->compressTab(),
 			"id" => $group->getId()
 		));
 	}

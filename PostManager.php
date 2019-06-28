@@ -3,12 +3,11 @@ class PostManager extends Manager{
 	const TABLE_NAME = "post";
 
 	public function add(Post $post){
-		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, extra, tab, active, creation) VALUES(
+		$req = $this->_db->prepare('INSERT INTO '.self::TABLE_NAME.'(user, type, field, extra, active, creation) VALUES(
 			:user,
 			:type,
 			:field,
 			:extra,
-			:tab,
 			:active,
 			:creation
 		)');
@@ -17,7 +16,6 @@ class PostManager extends Manager{
 			"type" => $post->getType(),
 			"field" => $post->getField(),
 			"extra" => $post->getExtra(),
-			"tab" => $post->getTab(),
 			"active" => $post->getActive(),
 			"creation" => $post->getCreation()
 		));
@@ -46,12 +44,11 @@ class PostManager extends Manager{
 	}
 
 	public function update(Post $post){
-		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET field = :field, type = :type, extra = :extra, tab = :tab WHERE id = :id');
+		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET field = :field, type = :type, extra = :extra, WHERE id = :id');
 		$req->execute(array(
 			"field" => $post->getField(),
 			"type" => $post->getType(),
 			"extra" => $post->getExtra(),
-			"tab" => $post->getTab(),
 			"id" => $post->getId()
 		));
 	}
