@@ -18,11 +18,11 @@ class Post extends Track{
     }
 
     public function setType($type){
-        if(!is_int($type)){
+        if(!preg_match("#^[0-9]{1,5}$#", $type)){
             trigger_error("Type must be an integer", E_USER_WARNING);
             return;
         }
-        $this->_type = $type;
+        $this->_type = (int) $type;
     }
 
     public function setField($field){
