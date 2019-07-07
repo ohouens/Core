@@ -17,6 +17,7 @@ class Constant{
     const THREAD_FORUM = 0;
     const THREAD_FLUX = 1;
     const THREAD_TICKETING = 2;
+    const THREAD_ANSWER = 3;
 
     const ERROR_CODE_OK = 0;
 }
