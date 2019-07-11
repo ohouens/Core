@@ -61,6 +61,7 @@ class UserManager extends Manager{
             "token" => $user->getToken(),
             "extra" => $user->getExtra(),
             "active" => $user->getActive(),
+            "id" => $user->getId()
         ));
     }
 
