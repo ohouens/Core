@@ -55,8 +55,9 @@ class UserManager extends Manager{
     }
 
     public function update(User $user){
-        $req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET password = :password, token = :token, extra = :extra, active = :active WHERE id = :id');
+        $req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET email = :email, password = :password, token = :token, extra = :extra, active = :active WHERE id = :id');
         $req->execute(array(
+            "email" => $user->getEmail(),
             "password" => $user->getPassword(),
             "token" => $user->getToken(),
             "extra" => $user->getExtra(),
