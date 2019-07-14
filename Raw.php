@@ -43,9 +43,11 @@ class Raw{
             $this->compressExtra();
     }
 
-    public function removeData($key){
+    public function removeData($key, $compress=true){
         if(array_key_exists($key, $this->_data))
             unset($this->_data[$key]);
+        if($compress)
+            $this->compressExtra();
     }
 
     public function compressExtra(){
