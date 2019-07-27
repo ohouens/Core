@@ -57,7 +57,7 @@ class User extends Track{
 
     public function setEmail($email){
         if(!preg_match(Constant::REGEX_EMAIL, $email)){
-            trigger_error("Incorect format of email", E_USER_WARNING);
+            trigger_error("Incorect format of email: ".$email, E_USER_WARNING);
             return 22;
         }
         $this->_email = $email;
