@@ -56,7 +56,7 @@ class User extends Track{
     }
 
     public function setEmail($email){
-        if(!preg_match("#^[a-z0-9-_.]{2,}@[a-z]+\.[a-z]{2,}$#", $email)){
+        if(!preg_match(Constant::REGEX_EMAIL, $email)){
             trigger_error("Incorect format of email", E_USER_WARNING);
             return 22;
         }
