@@ -7,10 +7,12 @@ class Point extends Track{
 
 
     public function compressName(){
-        return $this->_country.$this->_origin.$this->_creator;
+        $this->_name =  $this->_country.$this->_origin.$this->_creator;
     }
 
     public function decompressName(){
+        if($this->_name == "")
+            return;
         $this->setCountry(substr($this->_name, 0, 2));
         $this->setOrigin(substr($this->_name, 2, -3));
         $this->setCreator(substr($this->_name, -3));
@@ -46,7 +48,7 @@ class Point extends Track{
     }
 
     public function setOrigin($origin){
-        if(!preg_match("#^[0-9]{1}[0-9A-F]{2}[0-9]{8}$#", $origin)){
+        if(!preg_match("#^[0-9A-F]{3}[0-9]{8}$#", $origin)){
             trigger_error("Incorrect format of origin", E_USER_WARNING);
             return;
         }
