@@ -38,7 +38,7 @@ class UserManager extends Manager{
     }
 
     public function get($id, $stop=false){
-        $req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE id = ? OR pseudo = ? OR email = ?');
+        $req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE active >= 1 AND (id = ? OR pseudo = ? OR email = ?)');
         $req->execute(array($id, $id, $id));
         $result = $req->fetch();
         if(!$result){if($stop){echo 293;exit(293);}return 293;}
@@ -46,7 +46,7 @@ class UserManager extends Manager{
     }
 
     public function getList(){
-		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME);
+		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE active >= 1');
 		$req->execute();
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)

@@ -27,7 +27,7 @@ class GroupManager extends Manager{
 	}
 
 	public function get($id){
-		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE id = :id');
+		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE active >= 1 AND (id = :id)');
 		$req->execute(array("id" => $id));
 		$result = $req->fetch();
 		if(!$result)return 44;
@@ -35,7 +35,7 @@ class GroupManager extends Manager{
 	}
 
 	public function getList(){
-		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME);
+		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE active >= 1');
 		$req->execute();
 		$result = $req->fetchAll();
 		for($i=0; $i<count($result); $i++)
