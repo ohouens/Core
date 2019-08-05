@@ -20,7 +20,18 @@ class User extends Track{
         }
     }
 
-    public static function end(){
+    public function setCookie(){
+		setcookie("id", $this->getId(), time()+60*60*24*28);
+		setcookie("token", $this->getToken(), time()+60*60*24*28);
+    }
+
+    public function destroyCookie(){
+		setcookie("id", $this->getId(), time()-3600);
+		setcookie("token", $this->getToken(), time()-3600);
+    }
+
+    public function end(){
+        $this->destroyCookie();
         session_unset();
     	session_destroy();
     	header('location: index.php');
