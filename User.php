@@ -38,6 +38,17 @@ class User extends Track{
         return 0;
     }
 
+    public function hashPassword($password){
+        $state = $this->setPassword($password);
+        if(is_int($state))
+            return $state;
+        $this->setPassword(self::cryptPassword($password));
+    }
+
+    public static function cryptPassword($password){
+        return password_hash($password, PASSWORD_BCRYPT, ["salt"=>"cK0vc5kmamZlZl7NSdwLMdx8Oni3mcaO"]);
+    }
+
     public function getPseudo(){
         return $this->_pseudo;
     }
