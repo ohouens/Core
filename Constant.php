@@ -13,6 +13,7 @@ class Constant{
     const REGEX_EMAIL = "/^[^\W][a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-zA-Z]{2,4}$/";
     const REGEX_NAME_GROUP = "/^[A-Z]{1}[a-zA-Z]{0,}$/";
     const REGEX_NAME_POINT = "/^[A-Z]{2}[0-9]{1}[0-9A-F]{2}[0-9]{9}[A-Z]{2}$/";
+    const REGEX_FORMAT_TITLE = "/^([\w&àâçéèêëîïôûùüÿñæœ]+['?. ]?){2,77}$/";
 
     const THREAD_FORUM = 0;
     const THREAD_FLUX = 1;
