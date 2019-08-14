@@ -3,6 +3,8 @@ class Group extends Track{
     protected $_name;
     protected $_membre;
 
+    const HASHNAME = "group";
+
     public function hydrate(array $data){
         parent::hydrate($data);
         $this->decompressMembre();

@@ -4,6 +4,8 @@ class Raw{
     protected $_data;
     protected $_extra;
 
+    const HASHNAME = "raw";
+
     private static $_cpt = 0;
 
     public function __construct(array $data = []){

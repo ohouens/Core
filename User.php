@@ -4,6 +4,8 @@ class User extends Track{
     protected $_email;
     protected $_password;
 
+    const HASHNAME = "user";
+
     public function __construct(array $data = []){
         $this->_pseudo = "";
         $this->_email = "";

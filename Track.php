@@ -4,6 +4,8 @@ class Track extends Raw{
     protected $_active;
     protected $_creation;
 
+    const HASHNAME = "track";
+
     public function __construct(array $data=[]){
         $this->setToken(achage(32));
         $this->setActive(1);

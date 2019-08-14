@@ -4,6 +4,8 @@ class Post extends Track{
     protected $_type;
     protected $_field;
 
+    const HASHNAME = "post";
+
     public function __construct(array $data=[]){
         $this->setType(0);
         parent::__construct($data);

@@ -5,6 +5,8 @@ class Point extends Track{
     protected $_country;
     protected $_creator;
 
+    const HASHNAME = "point";
+
 
     public function compressName(){
         $this->_name =  $this->_country.$this->_origin.$this->_creator;
