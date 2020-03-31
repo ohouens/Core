@@ -49,4 +49,5 @@ class Constant{
     const ERROR_CODE_HOBBY_FORMAT = 53;
     const ERROR_CODE_INSTAGRAM_FORMAT = 54;
     const ERROR_CODE_LINKEDIN_FORMAT = 55;
+    const ERROR_CODE_SNAPCHAT_FORMAT = 56;
 }
