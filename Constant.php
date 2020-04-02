@@ -19,6 +19,7 @@ class Constant{
     const THREAD_FLUX = 1;
     const THREAD_TICKETING = 2;
     const THREAD_ANSWER = 3;
+    const THREAD_LIST = 4;
 
     const ERROR_CODE_OK = 0;
     const ERROR_CODE_NOT_FOUND = 44;
