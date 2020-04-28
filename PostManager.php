@@ -53,6 +53,10 @@ class PostManager extends Manager{
 		));
 	}
 
+	public function lastId(){
+		return $this->_db->lastInsertId();
+	}
+
 	public function listFormatFilter(array $list, array $formats){
 		//Post list[]
         //int formats[]
