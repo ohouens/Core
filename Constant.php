@@ -21,6 +21,7 @@ class Constant{
     const THREAD_TICKETING = 2;
     const THREAD_ANSWER = 3;
     const THREAD_LIST = 4;
+    const THREAD_POSTER = 5;
 
     const ERROR_CODE_OK = 0;
     const ERROR_CODE_NOT_FOUND = 44;
