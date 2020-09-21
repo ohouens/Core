@@ -43,6 +43,15 @@ class PostManager extends Manager{
 		return $this->_list;
 	}
 
+	public function getListOfType($type){
+		$req = $this->_db->prepare('SELECT * FROM '.self::TABLE_NAME.' WHERE active >= 1 AND type = :type');
+		$req->execute(["type"=>$type]);
+		$result = $req->fetchAll();
+		for($i=0; $i<count($result); $i++)
+			$this->_list[$i] = new Post($result[$i]);
+		return $this->_list;
+	}
+
 	public function update(Post $post){
 		$req = $this->_db->prepare('UPDATE '.self::TABLE_NAME.' SET `active`= :active, `field` = :field, `extra` = :extra WHERE `id` = :id');
 		$req->execute(array(
