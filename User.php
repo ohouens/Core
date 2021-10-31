@@ -48,7 +48,7 @@ class User extends Track{
     }
 
     public static function cryptPassword($password){
-        return password_hash($password, PASSWORD_BCRYPT, ["salt"=>"cK0vc5kmamZlZl7NSdwLMdx8Oni3mcaO"]);
+        return password_hash($password, PASSWORD_BCRYPT, ["salt"=>passwordSalt()]);
     }
 
     public function getPseudo(){
